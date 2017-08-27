@@ -7,7 +7,7 @@ let apiCalls = require('./api_calls');
 $(window).ready(function(){
 	DOM.loadZipForm();
 
-	apiCalls.getOneDay('53213').then(function(data){
+	apiCalls.getWeatherData('forecast', '53213').then(function(data){
 		console.log("data is ", data);
 	});
 

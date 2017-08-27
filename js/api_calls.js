@@ -6,10 +6,10 @@ let api = getAPI();
 //to get api key --->  api.apiKey
 
 let apiCalls = {
-	getOneDay: (zipCode) => {
+	getWeatherData: (typeId, zipCode) => {
 		return new Promise((resolve, reject) => {
 			$.ajax({
-				url: `${api.url}data/2.5/weather?zip=${zipCode},us&APPID=${api.apiKey}`
+				url: `${api.url}data/2.5/${typeId}?zip=${zipCode},us&APPID=${api.apiKey}`
 			}).done((data) => {
 				resolve(data);
 			});
