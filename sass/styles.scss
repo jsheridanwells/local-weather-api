@@ -1,0 +1,26 @@
+/*Header Styles*/
+header {
+	padding: 2em;
+}
+
+h1 {
+	font-size: 3em;
+	font-weight: 100;
+}
+
+/*Jumbotron Styles*/
+.jumbotron {
+	text-align: center;
+	background-image: url("../img/clouds.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+h2.display-5 {
+	color: #f4f4f4;
+	text-shadow: 2px 2px 1px #000;
+}
+
+form {
+	margin: 2em;
+}
