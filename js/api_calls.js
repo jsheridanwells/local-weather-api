@@ -9,7 +9,7 @@ let apiCalls = {
 	getWeatherData: (typeId, zipCode) => {
 		return new Promise((resolve, reject) => {
 			$.ajax({
-				url: `${api.url}data/2.5/${typeId}?zip=${zipCode},us&APPID=${api.apiKey}`
+				url: `${api.url}data/2.5/${typeId}?zip=${zipCode},us&APPID=${api.apiKey}&units=imperial`
 			}).done((data) => {
 				resolve(data);
 			});
