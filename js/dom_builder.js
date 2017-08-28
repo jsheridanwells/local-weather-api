@@ -7,7 +7,7 @@ let DOM = {
 		let content = `
 			<div class="jumbotron">
 				<h2 class="display-5">Enter a Zip Code:</h2>
-				<form action="submit"><input type="text" pattern="[0-9]{5}" maxlength="5" id="zip-code-enter" value="53213"></form>
+				<form><input type="text" pattern="[0-9]{5}" maxlength="5" id="zip-code-enter" value="53213"></form>
 				<p class="lead">
 					<a class="btn btn-primary btn-lg" href="#" role="button">Get Weather</a>
 				</p>
@@ -16,12 +16,15 @@ let DOM = {
 		$('#frame').html(content);
 		//on button click, get weather data});
 		$('.btn').click(()=> {
-		apiCalls.getWeatherData('weather', $('#zip-code-enter').val())
-		.then((data)=>{
-			DOM.loadCurrent(data);
+			console.log("clicking");
+			apiCalls.getWeatherData('weather', $('#zip-code-enter').val())
+			.then((data)=>{
+				console.log("data", data);
+				DOM.loadCurrent(data);
+			});
 		});
-	});
 	},
+	//loads current / 3-day / 5-day tabs at th top of the view
 	loadTabs: () => {
 		$('#frame').html('');
 		let content = `

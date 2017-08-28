@@ -1,7 +1,7 @@
 'use strict';
 let $ = require('jquery');
-let DOM = require('./dom_builder');
 let apiCalls = require('./api_calls');
+let DOM = require('./dom_builder');
 
 
 
