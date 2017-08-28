@@ -1,4 +1,6 @@
 'use strict';
+let apiCalls = require('./api_calls');
+
 let DOM = {
 	//loads form for submitting zip code to query
 	loadZipForm: () => {
@@ -12,18 +14,49 @@ let DOM = {
 			</div>
 		`;
 		$('#frame').html(content);
+		//on button click, get weather data});
+		$('.btn').click(()=> {
+		apiCalls.getWeatherData('weather', $('#zip-code-enter').val())
+		.then((data)=>{
+			DOM.loadCurrent(data);
+		});
+	});
+	},
+	loadTabs: () => {
+		$('#frame').html('');
+		let content = `
+			<div class="tabs">
+		        <ul class="nav nav-tabs">
+		          <li class="nav-item">
+		            <a id="current" class="nav-link" href="#">Current Weather</a>
+		          </li>
+		          <li id="three-day" class="nav-item">
+		            <a class="nav-link" href="#">3-Day Forecast</a>
+		          </li>
+		          <li class="nav-item">
+		            <a id="five-day" class="nav-link" href="#">5-Day Forecast</a>
+		          </li>
+		        </ul>
+	        </div>
+		`;
+		$('#frame').append(content);
 	},
 	loadCurrent: (data) => {
+		DOM.loadTabs();
+		$('#current').addClass('active');
+		console.log("data is ", data);
 		let content = `
-			<div class="jumbotron">
-				<div class="weather-img<img src="img/${data.weather[0].icon}.svg" alt="">
-				<p><strong>Temperature: </strong></p>
-				<p><strong></strong></p>
-				<p><strong></strong></p>
-				<p><strong></strong></p>
-			</div>
+			<div class="jumbotron no-back">
+		        <div class="weather-img"><img src="img/${data.weather[0].icon}.svg" class="weather-svg" alt=""></div>
+		        <p><strong>Temperature: </strong>${data.main.temp.toFixed(0)} &deg; F</p>
+		        <p><strong>Conditions: </strong>${data.weather[0].description}</p>
+		        <p><strong>Air Pressure: </strong>${data.main.pressure}</p>
+		        <p><strong>Wind Speed: </strong>${data.wind.speed.toFixed(0)} mph</p>
+		    </div>
+		    <div class="bottom-row"><a href="#" id="next-zip">Search Another Zip Code</a></div>
 		`;
-		$('#frame').html(content);
+		$('#frame').append(content);
+		$('#next-zip').on('click', DOM.loadZipForm);
 	}
 };
 
