@@ -12,6 +12,18 @@ let DOM = {
 			</div>
 		`;
 		$('#frame').html(content);
+	},
+	loadCurrent: (data) => {
+		let content = `
+			<div class="jumbotron">
+				<div class="weather-img<img src="img/${data.weather[0].icon}.svg" alt="">
+				<p><strong>Temperature: </strong></p>
+				<p><strong></strong></p>
+				<p><strong></strong></p>
+				<p><strong></strong></p>
+			</div>
+		`;
+		$('#frame').html(content);
 	}
 };
 
