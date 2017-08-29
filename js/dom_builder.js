@@ -15,14 +15,8 @@ let DOM = {
 		`;
 		$('#frame').html(content);
 		//on button click, get weather data});
-		$('.btn').click(()=> {
-			console.log("clicking");
-			apiCalls.getWeatherData('weather', $('#zip-code-enter').val())
-			.then((data)=>{
-				console.log("data", data);
-				DOM.loadCurrent(data);
-			});
-		});
+		Handlers.addBtnClick();
+
 	},
 	//loads current / 3-day / 5-day tabs at th top of the view
 	loadTabs: () => {
@@ -47,7 +41,6 @@ let DOM = {
 	loadCurrent: (data) => {
 		DOM.loadTabs();
 		$('#current').addClass('active');
-		console.log("data is ", data);
 		let content = `
 			<div class="jumbotron no-back">
 		        <div class="weather-img"><img src="img/${data.weather[0].icon}.svg" class="weather-svg" alt=""></div>
@@ -60,7 +53,41 @@ let DOM = {
 		`;
 		$('#frame').append(content);
 		$('#next-zip').on('click', DOM.loadZipForm);
+	},
+	load3Day: (data) => {
+		DOM.loadTabs();
+		$('three-day').attr('class', 'active');
+		let content = '';
+		for (let i = 0; i <= 16; i+=8) {
+			content +=`
+	          <div class="col-md-4">
+	              <div class="weather-img"><img src="img/${data.list[i].weather[0].icon}.svg" class="weather-svg" alt="${data.list[i].weather[0].description}"></div>
+	                <p><strong>Temperature: </strong>${data.list[i].main.temp} &deg; F</p>
+	                <p><strong>Conditions: </strong>${data.list[i].weather[0].description}</p>
+	                <p><strong>Air Pressure: </strong>${data.list[i].main.pressure}</p>
+	                <p><strong>Wind Speed: </strong>${data.list[i].wind.speed}</p>
+	          </div>
+          `;
+        }
+        let $row = $('<div></div>').attr('class', 'row');
+        $($row).append(content);
+		$('#frame').append($row);
+		$('#next-zip').on('click', DOM.loadZipForm);
+
 	}
 };
 
-module.exports = DOM;
+let Handlers = {
+	addBtnClick: () => {
+		$('.btn').click(()=> {
+			console.log("clicking");
+			apiCalls.getWeatherData('weather', $('#zip-code-enter').val())
+			.then((data)=>{
+				console.log("data", data);
+				DOM.loadCurrent(data);
+			});
+		});
+	}
+};
+
+module.exports = {DOM, Handlers};
