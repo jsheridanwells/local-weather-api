@@ -18,8 +18,8 @@ let DOM = {
 		Handlers.addBtnClick();
 
 	},
-	//loads current / 3-day / 5-day tabs at th top of the view
-	loadTabs: () => {
+	//loads current / 3-day / 5-day tabs at th top of the view, madeActive specifies which tab is active
+	loadTabs: (madeActive) => {
 		$('#frame').html('');
 		let content = `
 			<div class="tabs">
@@ -27,8 +27,8 @@ let DOM = {
 		          <li class="nav-item">
 		            <a id="current" class="nav-link" href="#">Current Weather</a>
 		          </li>
-		          <li id="three-day" class="nav-item">
-		            <a class="nav-link" href="#">3-Day Forecast</a>
+		          <li class="nav-item">
+		            <a id="three-day" class="nav-link" href="#">3-Day Forecast</a>
 		          </li>
 		          <li class="nav-item">
 		            <a id="five-day" class="nav-link" href="#">5-Day Forecast</a>
@@ -37,10 +37,25 @@ let DOM = {
 	        </div>
 		`;
 		$('#frame').append(content);
+		$(madeActive).addClass('active');
+		//load listeners for current
+		DOM.loadListeners('#current', 'weather', DOM.loadCurrent, 0);
+		//load listeners for 3-day
+		DOM.loadListeners('#three-day', 'forecast', DOM.loadMultiDay, 16);
+		//load listeners for 5-day
+		DOM.loadListeners('#five-day', 'forecast/daily', DOM.loadMultiDay, 32);
 	},
-	loadCurrent: (data) => {
-		DOM.loadTabs();
-		$('#current').addClass('active');
+	loadListeners: (id, forecastType, loaderType, limit) => {
+		$(id).click(()=>{
+			let $zip = $('#zip-code-enter').val();
+			apiCalls.getWeatherData(forecastType, $zip)
+			.then((data)=>{
+				loaderType(data, limit);
+			});
+		});
+	},
+	loadCurrent: (data, limit) => {
+		DOM.loadTabs('#current');
 		let content = `
 			<div class="jumbotron no-back">
 		        <div class="weather-img"><img src="img/${data.weather[0].icon}.svg" class="weather-svg" alt=""></div>
@@ -54,11 +69,9 @@ let DOM = {
 		$('#frame').append(content);
 		$('#next-zip').on('click', DOM.loadZipForm);
 	},
-	load3Day: (data) => {
-		DOM.loadTabs();
-		$('three-day').attr('class', 'active');
+	loadMultiDay: (data, limit) => {
 		let content = '';
-		for (let i = 0; i <= 16; i+=8) {
+		for (let i = 0; i <= limit; i+=8) {
 			content +=`
 	          <div class="col-md-4">
 	              <div class="weather-img"><img src="img/${data.list[i].weather[0].icon}.svg" class="weather-svg" alt="${data.list[i].weather[0].description}"></div>
@@ -73,7 +86,14 @@ let DOM = {
         $($row).append(content);
 		$('#frame').append($row);
 		$('#next-zip').on('click', DOM.loadZipForm);
-
+	},
+	load3Day: (data) => {
+		DOM.loadTabs('#three-day');
+		DOM.buildMultiDayCards(data, 16);
+	},
+	load5day: (data) => {
+		DOM.loadTabs('#five-day');
+		DOM.buildMultiDayCards(data, 32);
 	}
 };
 
