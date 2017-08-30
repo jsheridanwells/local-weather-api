@@ -56,7 +56,6 @@ let DOM = {
 	},
 	load3Day: (data) => {
 		DOM.loadTabs();
-		$('three-day').attr('class', 'active');
 		let content = '';
 		for (let i = 0; i <= 16; i+=8) {
 			content +=`

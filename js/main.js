@@ -11,7 +11,7 @@ let DOM = require('./dom_builder');
 
 //testing
 $(window).ready(()=>{
-	apiCalls.getWeatherData('forecast', 53213)
+	apiCalls.getWeatherData('forecast', 37206)
 	.then((data)=>{
 		console.log("data", data);
 		DOM.DOM.load3Day(data);
