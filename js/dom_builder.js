@@ -1,5 +1,6 @@
 'use strict';
 let apiCalls = require('./api_calls');
+let zipCodes = require('./zipCodes.js');
 
 let DOM = {
 	//loads form for submitting zip code to query
@@ -47,7 +48,7 @@ let DOM = {
 	},
 	loadListeners: (id, forecastType, loaderType, limit) => {
 		$(id).click(()=>{
-			let $zip = $('#zip-code-enter').val();
+			let $zip = zipCodes.getZip();
 			apiCalls.getWeatherData(forecastType, $zip)
 			.then((data)=>{
 				loaderType(data, limit);
@@ -72,6 +73,7 @@ let DOM = {
 	loadMultiDay: (data, limit) => {
 		let content = '';
 		for (let i = 0; i <= limit; i+=8) {
+			console.log("loadMultiDay Firing");
 			content +=`
 	          <div class="col-md-4">
 	              <div class="weather-img"><img src="img/${data.list[i].weather[0].icon}.svg" class="weather-svg" alt="${data.list[i].weather[0].description}"></div>
@@ -89,11 +91,11 @@ let DOM = {
 	},
 	load3Day: (data) => {
 		DOM.loadTabs('#three-day');
-		DOM.buildMultiDayCards(data, 16);
+		DOM.buildMultiDay(data, 16);
 	},
 	load5day: (data) => {
 		DOM.loadTabs('#five-day');
-		DOM.buildMultiDayCards(data, 32);
+		DOM.buildMultiDay(data, 32);
 	}
 };
 
@@ -104,6 +106,7 @@ let Handlers = {
 			apiCalls.getWeatherData('weather', $('#zip-code-enter').val())
 			.then((data)=>{
 				console.log("data", data);
+				zipCodes.setZip();
 				DOM.loadCurrent(data);
 			});
 		});
