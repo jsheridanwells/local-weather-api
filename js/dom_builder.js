@@ -36,6 +36,7 @@ let DOM = {
 		          </li>
 		        </ul>
 	        </div>
+	        <div id="weather-data"></div>
 		`;
 		$('#frame').append(content);
 		$(madeActive).addClass('active');
@@ -67,7 +68,7 @@ let DOM = {
 		    </div>
 		    <div class="bottom-row"><a href="#" id="next-zip">Search Another Zip Code</a></div>
 		`;
-		$('#frame').append(content);
+		$('#weather-data').html(content);
 		$('#next-zip').on('click', DOM.loadZipForm);
 	},
 	loadMultiDay: (data, limit) => {
@@ -86,7 +87,7 @@ let DOM = {
         }
         let $row = $('<div></div>').attr('class', 'row');
         $($row).append(content);
-		$('#frame').append($row);
+		$('#weather-data').html($row);
 		$('#next-zip').on('click', DOM.loadZipForm);
 	},
 	load3Day: (data) => {
