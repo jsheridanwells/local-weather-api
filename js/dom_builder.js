@@ -1,4 +1,4 @@
-'use strict';
+  'use strict';
 let apiCalls = require('./api_calls');
 let zipCodes = require('./zipCodes.js');
 
@@ -44,7 +44,7 @@ let DOM = {
 		//load listeners for 3-day
 		DOM.loadListeners('#three-day', 'forecast', DOM.loadMultiDay, 16);
 		//load listeners for 5-day
-		DOM.loadListeners('#five-day', 'forecast/daily', DOM.loadMultiDay, 32);
+		DOM.loadListeners('#five-day', 'forecast', DOM.loadMultiDay, 32);
 	},
 	loadListeners: (id, forecastType, loaderType, limit) => {
 		$(id).click(()=>{
