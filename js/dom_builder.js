@@ -20,7 +20,7 @@ let DOM = {
 
 	},
 	//loads current / 3-day / 5-day tabs at th top of the view, madeActive specifies which tab is active
-	loadTabs: (madeActive) => {
+	loadTabs: () => {
 		$('#frame').html('');
 		let content = `
 			<div class="tabs">
@@ -36,9 +36,9 @@ let DOM = {
 		          </li>
 		        </ul>
 	        </div>
+	        <div id="weather-data"></div>
 		`;
 		$('#frame').append(content);
-		$(madeActive).addClass('active');
 		//load listeners for current
 		DOM.loadListeners('#current', 'weather', DOM.loadCurrent, 0);
 		//load listeners for 3-day
@@ -56,7 +56,7 @@ let DOM = {
 		});
 	},
 	loadCurrent: (data, limit) => {
-		DOM.loadTabs('#current');
+		DOM.loadTabs();
 		let content = `
 			<div class="jumbotron no-back">
 		        <div class="weather-img"><img src="img/${data.weather[0].icon}.svg" class="weather-svg" alt=""></div>
@@ -67,7 +67,7 @@ let DOM = {
 		    </div>
 		    <div class="bottom-row"><a href="#" id="next-zip">Search Another Zip Code</a></div>
 		`;
-		$('#frame').append(content);
+		$('#weather-data').html(content);
 		$('#next-zip').on('click', DOM.loadZipForm);
 	},
 	loadMultiDay: (data, limit) => {
@@ -86,7 +86,7 @@ let DOM = {
         }
         let $row = $('<div></div>').attr('class', 'row');
         $($row).append(content);
-		$('#frame').append($row);
+		$('#weather-data').html($row);
 		$('#next-zip').on('click', DOM.loadZipForm);
 	},
 	load3Day: (data) => {
