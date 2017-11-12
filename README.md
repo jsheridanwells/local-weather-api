@@ -1,5 +1,7 @@
 # Local Weather Viewer
 
+__[Deployed Version]__(http://local-weather-viewer.surge.sh/)
+
 With this app, a user can view current, 3-day, and 5-day forecasts for weather in any US zip code. 
 
 The Local Weather Viewer uses the <a href="https://openweathermap.org/api">Open Weather Map API</a> to retrieve weather data. The user interface is created with Bootstrap 4, Sass and using SVG icons from <a href="http://www.alessioatzeni.com/meteocons/">Meteocons</a> triggered by API data. Jquery code is encapsulated using Browserify.
