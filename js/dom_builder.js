@@ -46,6 +46,7 @@ let DOM = {
 		//load listeners for 5-day
 		DOM.loadListeners('#five-day', 'forecast', DOM.loadMultiDay, 32);
 	},
+	// creates an Ajax call, parameters indicate type of button clicked, forecast type, callback function, # of array items
 	loadListeners: (id, forecastType, loaderType, limit) => {
 		$(id).click(()=>{
 			let $zip = zipCodes.getZip();
@@ -55,6 +56,7 @@ let DOM = {
 			});
 		});
 	},
+	//sets up HTML elements for current forecast
 	loadCurrent: (data, limit) => {
 		DOM.loadTabs();
 		let content = `
@@ -70,6 +72,7 @@ let DOM = {
 		$('#weather-data').html(content);
 		$('#next-zip').on('click', DOM.loadZipForm);
 	},
+	//sets up HTML elements for 3- and 5-day forecasts
 	loadMultiDay: (data, limit) => {
 		let content = '';
 		for (let i = 0; i <= limit; i+=8) {
@@ -102,10 +105,8 @@ let DOM = {
 let Handlers = {
 	addBtnClick: () => {
 		$('.btn').click(()=> {
-			console.log("clicking");
 			apiCalls.getWeatherData('weather', $('#zip-code-enter').val())
 			.then((data)=>{
-				console.log("data", data);
 				zipCodes.setZip();
 				DOM.loadCurrent(data);
 			});

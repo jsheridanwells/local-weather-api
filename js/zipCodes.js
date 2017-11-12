@@ -2,14 +2,13 @@
 
 let $zip;
 
+//retrieves zip code setting entered by the user
 function setZip() {
-	console.log("zip firing");
 	$zip = $('#zip-code-enter').val();
-	console.log("zip is ", $zip);
 }
 
+//makes zip code setting available to other parts of the application
 function getZip() {
-	console.log("zip in getZip is ", $zip);
 	return $zip;
 }
 

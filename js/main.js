@@ -9,20 +9,3 @@ let DOM = DomBuilder.DOM;
 $(window).ready(function(){
 	DOM.loadZipForm();
 });
-
-//testing
-// $(window).ready(()=>{
-// 	apiCalls.getWeatherData('forecast', 37206)
-// 	.then((data)=>{
-// 		console.log("data", data);
-// 		DOM.DOM.load3Day(data);
-// 	});
-// });
-
-// //testing
-// $(window).ready(()=>{
-// 	apiCalls.getWeatherData()
-// 	.then((data)=>{
-// 		DOM.loadCurrent(data);
-// 	});
-// });
