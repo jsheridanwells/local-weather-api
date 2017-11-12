@@ -75,6 +75,7 @@ let DOM = {
 	//sets up HTML elements for 3- and 5-day forecasts
 	loadMultiDay: (data, limit) => {
 		let content = '';
+		let zip = '<div class="bottom-row"><a href="#" id="next-zip">Search Another Zip Code</a></div>';
 		for (let i = 0; i <= limit; i+=8) {
 			console.log("loadMultiDay Firing");
 			content +=`
@@ -90,6 +91,7 @@ let DOM = {
         let $row = $('<div></div>').attr('class', 'row');
         $($row).append(content);
 		$('#weather-data').html($row);
+		$('#weather-data').append(zip);
 		$('#next-zip').on('click', DOM.loadZipForm);
 	},
 	load3Day: (data) => {
