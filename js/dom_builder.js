@@ -8,7 +8,7 @@ let DOM = {
 		let content = `
 			<div class="jumbotron">
 				<h2 class="display-5">Enter a Zip Code:</h2>
-				<form><input type="text" pattern="[0-9]{5}" maxlength="5" id="zip-code-enter" value="53213"></form>
+				<form><input type="text" pattern="[0-9]{5}" maxlength="5" id="zip-code-enter" placeholder="53213"></form>
 				<p class="lead">
 					<a class="btn btn-primary btn-lg" href="#" role="button">Get Weather</a>
 				</p>
@@ -77,10 +77,10 @@ let DOM = {
 			content +=`
 	          <div class="col-md-4">
 	              <div class="weather-img"><img src="img/${data.list[i].weather[0].icon}.svg" class="weather-svg" alt="${data.list[i].weather[0].description}"></div>
-	                <p><strong>Temperature: </strong>${data.list[i].main.temp} &deg; F</p>
+	                <p><strong>Temperature: </strong>${data.list[i].main.temp.toFixed(0)} &deg; F</p>
 	                <p><strong>Conditions: </strong>${data.list[i].weather[0].description}</p>
 	                <p><strong>Air Pressure: </strong>${data.list[i].main.pressure}</p>
-	                <p><strong>Wind Speed: </strong>${data.list[i].wind.speed}</p>
+	                <p><strong>Wind Speed: </strong>${data.list[i].wind.speed.toFixed(0)}</p>
 	          </div>
           `;
         }
