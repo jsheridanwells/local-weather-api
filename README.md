@@ -1,6 +1,6 @@
 # Local Weather Viewer
 
-[Deployed Version](http://local-weather-viewer.surge.sh/)
+[View the deployed version](http://jeremywells.io/local-weather-viewer)
 
 With this app, a user can view current, 3-day, and 5-day forecasts for weather in any US zip code. 
 
