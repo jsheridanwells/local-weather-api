@@ -9,3 +9,6 @@ let DOM = DomBuilder.DOM;
 $(window).ready(function(){
 	DOM.loadZipForm();
 });
+
+// reload page when title is clicked
+$('#title').click(() => location.reload());
