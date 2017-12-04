@@ -111,7 +111,8 @@ let Handlers = {
 			.then((data)=>{
 				zipCodes.setZip();
 				DOM.loadCurrent(data);
-			});
+			})
+			.catch((error) => console.log(error));
 		});
 	}
 };

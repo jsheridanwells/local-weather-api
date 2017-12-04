@@ -8,7 +8,12 @@ let apiCalls = {
 	getWeatherData: (typeId, zipCode) => {
 		return new Promise((resolve, reject) => {
 			$.ajax({
-				url: `${api.url}data/2.5/${typeId}?zip=${zipCode},us&APPID=${api.apiKey}&units=imperial`
+				url: `${api.url}data/2.5/${typeId}?zip=${zipCode},us&APPID=${api.apiKey}&units=imperial`,
+				statusCode: {
+					400: () => {
+						window.alert('Please enter a valid zip code.');
+					}
+				}
 			}).done((data) => {
 				resolve(data);
 			});
