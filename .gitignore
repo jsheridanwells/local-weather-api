@@ -2,4 +2,5 @@ dist/
 css/
 lib/node_modules/
 lib/.sass-cache/
+lib/package-lock.json
 js/api.js
